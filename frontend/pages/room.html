@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#1e2128"/>
+<title>SoundRoom</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="/css/room.css"/>
+</head>
+<body>
+<div class="phone-wrap">
+  <div class="phone-frame">
+
+    <div class="phone-status">
+      <span id="ph-time" class="ph-time">9:41</span>
+      <div class="ph-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+    </div>
+
+    <div class="phone-nav">
+      <button class="nav-icon" id="btn-queue" aria-label="Ver cola"><i class="ti ti-list"></i></button>
+      <span class="nav-label" id="room-name">SoundRoom</span>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span class="user-count-pill"><i class="ti ti-users" style="font-size:12px"></i> <span id="user-count">0</span></span>
+      </div>
+    </div>
+
+    <!-- Reproductor YouTube -->
+    <div class="yt-player-wrap" id="yt-player-wrap">
+      <div id="yt-player"></div>
+      <div class="art-placeholder" id="art-ph">
+        <i class="ti ti-music"></i>
+        <span>Agrega una canción para comenzar</span>
+      </div>
+    </div>
+
+    <div class="song-info">
+      <div>
+        <div class="si-title" id="np-title">Sin canción activa</div>
+        <div class="si-artist" id="np-channel">—</div>
+      </div>
+      <button class="queue-pill" id="btn-queue2"><i class="ti ti-list"></i> Cola</button>
+    </div>
+
+    <div class="prog-section">
+      <div class="prog-track"><div class="prog-fill" id="u-prog" style="width:0%"></div></div>
+      <div class="prog-times"><span id="u-elapsed">0:00</span><span id="u-total">0:00</span></div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-sm" id="btn-shuffle" aria-label="Aleatorio"><i class="ti ti-arrows-shuffle"></i></button>
+      <button class="ctrl-sm" aria-label="Anterior"><i class="ti ti-player-skip-back"></i></button>
+      <button class="ctrl-play" id="btn-play" aria-label="Play/Pausa"><i class="ti ti-player-play" id="u-pp-icon"></i></button>
+      <button class="ctrl-sm" id="btn-next" aria-label="Siguiente"><i class="ti ti-player-skip-forward"></i></button>
+      <button class="ctrl-sm" aria-label="Repetir"><i class="ti ti-repeat"></i></button>
+    </div>
+
+    <div class="src-toggle">
+      <button class="src-btn active" id="src-yt" data-source="youtube"><i class="ti ti-brand-youtube"></i> YouTube</button>
+      <button class="src-btn" id="src-sp" data-source="spotify"><i class="ti ti-brand-spotify"></i> Spotify</button>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" id="search-input" class="search-field" placeholder="Buscar canción o artista..."/>
+        <button class="search-go" id="btn-search">Buscar</button>
+      </div>
+    </div>
+
+    <div id="search-results"></div>
+
+    <!-- Panel de cola -->
+    <div id="queue-panel" class="queue-panel hidden">
+      <div class="qp-handle"></div>
+      <div class="qp-header">
+        <span>En cola <span id="qp-count" class="qp-sub"></span></span>
+        <button id="btn-close-queue" class="nav-icon" aria-label="Cerrar cola"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="queue-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/room.js"></script>
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

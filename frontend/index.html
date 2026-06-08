@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SoundRoom</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="stylesheet" href="/css/main.css"/>
+<style>
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.landing{text-align:center;max-width:440px;}
+.logo{font-size:28px;font-weight:700;color:var(--txt);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;}
+.logo-dot{width:12px;height:12px;border-radius:50%;background:var(--sky);}
+.sub{font-size:15px;color:var(--txt2);margin-bottom:32px;}
+.join-form{display:flex;gap:8px;margin-bottom:16px;}
+.join-input{flex:1;padding:11px 14px;border-radius:12px;background:var(--bg2);border:1px solid var(--border2);color:var(--txt);font-size:14px;outline:none;text-transform:uppercase;letter-spacing:0.1em;}
+.join-input::placeholder{text-transform:none;letter-spacing:normal;}
+.join-input:focus{border-color:rgba(91,191,222,0.5);}
+.join-btn{padding:11px 20px;border-radius:12px;background:var(--sky);border:none;color:#0c3a4a;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.join-btn:hover{background:var(--sky2);}
+.join-btn i{font-size:18px;}
+.admin-link{font-size:13px;color:var(--txt3);}
+.admin-link a{color:var(--sky);text-decoration:none;}
+.admin-link a:hover{text-decoration:underline;}
+.err{font-size:13px;color:var(--red);margin-bottom:10px;display:none;}
+</style>
+</head>
+<body>
+<div class="landing">
+  <div class="logo"><div class="logo-dot"></div> SoundRoom</div>
+  <p class="sub">Ingresa el código de sala para agregar tus canciones favoritas</p>
+  <div id="err" class="err"></div>
+  <div class="join-form">
+    <input type="text" id="room-code" class="join-input" placeholder="Código de sala (ej: ABC12345)" maxlength="8"/>
+    <button class="join-btn" id="btn-join"><i class="ti ti-arrow-right"></i> Unirse</button>
+  </div>
+  <p class="admin-link">¿Eres administrador? <a href="/admin">Accede aquí</a></p>
+</div>
+<div id="toast"></div>
+<script>
+document.getElementById('btn-join').addEventListener('click', join);
+document.getElementById('room-code').addEventListener('keydown', e => { if(e.key==='Enter') join(); });
+function join(){
+  const code = document.getElementById('room-code').value.trim().toUpperCase();
+  if(!code){ document.getElementById('err').textContent='Ingresa un código de sala'; document.getElementById('err').style.display='block'; return; }
+  fetch(`/api/rooms/${code}`).then(r => {
+    if(r.ok) location.href = `/room/${code}`;
+    else { document.getElementById('err').textContent='Sala no encontrada o inactiva'; document.getElementById('err').style.display='block'; }
+  }).catch(()=>{ document.getElementById('err').textContent='Error de conexión'; document.getElementById('err').style.display='block'; });
+}
+</script>
+</body>
+</html>
