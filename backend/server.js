@@ -63,7 +63,7 @@ app.get('/health', (req, res) => res.json({
 require('./utils/socketHandler')(io);
 
 // ── Arranque ──────────────────────────────────────────────
-const PORT = process.env.PORT || process.env.RAILWAY_PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 sequelize.sync({ alter: process.env.NODE_ENV === 'development' })
   .then(() => {
