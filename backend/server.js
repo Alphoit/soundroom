@@ -68,7 +68,7 @@ const PORT = process.env.PORT || 3000;
 sequelize.sync({ alter: process.env.NODE_ENV === 'development' })
   .then(() => {
     logger.info('✅ Base de datos sincronizada');
-    server.listen(PORT, () => logger.info(`🚀 SoundRoom corriendo en http://localhost:${PORT}`));
+    server.listen(PORT, '0.0.0.0', () => logger.info(`🚀 SoundRoom corriendo en puerto ${PORT}`));
   })
   .catch(err => {
     logger.error('❌ Error al conectar base de datos:', err);
